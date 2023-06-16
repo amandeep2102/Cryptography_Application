@@ -91,6 +91,19 @@ public:
         return decrypted;
     }
 
+    char decrypt_with_key(string enc, long long int prvt, long long int prvt2){
+        stringstream ss;
+        ss << enc;
+        long long int encrypt;
+        ss >> encrypt;
+//        cout<<" for decryption inside decryption func "<<encrypt<<endl;
+        long long int dec;
+        dec = modular(encrypt, prvt, prvt2);
+        char decrypted;
+        decrypted = char(dec);
+        return decrypted;
+    }
+
     string make_five_bit_string(string str){
         int length = str.length();
         string in((5-length), '0');
@@ -108,41 +121,85 @@ int main()
     long long int prime1, prime2;
     prime1 = prime_array[rand()%25];
     prime2 = prime_array[rand()%25];
-//    prime1 = 61;
-//    prime2 = 61;
-    cout << "Enter two prime numbers: ";
-    cout<< "prime number 1: "<<prime1;
-    cout<< "   prime number 2: "<< prime2<<endl;
+    cout<< "prime number 1:: "<<prime1;
+    cout<< "\tprime number 2:: "<< prime2;
 
     RSA rsa{};
-    long long int pblc1, pblc2, prvt;
+    long long int pblc1, pblc2, prvt, private_key1, private_key2;
 
     rsa.getprimes(prime1, prime2);
-    cout << "phi value " << rsa.phi << endl;
+    cout << "\tphi value:: " << rsa.phi << endl;
     rsa.publickeys(&pblc1, &pblc2);
-    cout << "public key1 " << pblc1 << endl;
-    cout << "public key2 " << pblc2 << endl;
+    cout << "public key1:: " << pblc1;
+    cout << "\t public key2 & private key2:: " << pblc2;
 
     rsa.privatekeys(&prvt);
-    cout<<"private key "<< prvt<< endl;
+    cout<<"\tprivate key1:: "<< prvt<< endl;
 
-    string message = "amandeep";
-    string encrypted;
-    string decrypted;
+    string message,encrypted,decrypted;
     char d;
-    for (int i = 0; i < message.length(); ++i) {
-        string en = rsa.encrypt(message[i], pblc1, pblc2);
-        encrypted.append(en);
-    }
-    cout<<"encrypted "<< encrypted <<endl;
 
-    for (int i = 0; i < encrypted.length(); i=i+5) {
-        string str = encrypted.substr(i, 5);
-        cout<<"string for encryption " << str<<endl;
-        d = rsa.decrypt(encrypted.substr(i, 5), prvt);
-        decrypted.push_back(d);
+    while(true){
+        cout<<"e for encryption";
+        cout<<"\td for decryption";
+        cout<<"\tde if you have encrypted message with keys";
+        cout<<"\tleave by typing exit\n";
+        cout<<"Enter Your Choice: ";
+        string choice;
+        cin>>choice;
+
+        if(choice == "e"){
+            cout<<"Enter Message:: ";
+            message.clear();
+            encrypted.clear();
+            cin >> message;
+            for (char i : message) {
+                string en = rsa.encrypt(i, pblc1, pblc2);
+                encrypted.append(en);
+            }
+            cout<<"\nHere's your encrypted message:: "<< encrypted <<endl <<endl;
+        }
+
+        else if(choice == "d"){
+            cout<<"Enter Encrypted Message:: ";
+            cin>>encrypted;
+            decrypted.clear();
+            for (int i = 0; i < encrypted.length(); i=i+5) {
+                string str = encrypted.substr(i, 5);
+                d = rsa.decrypt(str, prvt);
+                decrypted.push_back(d);
+            }
+            cout<<"\nYour Message is Decrypted:: "<<decrypted<<endl<<endl;
+        }
+
+        else if(choice=="de"){
+            cout<<"Enter Encrypted Message:: ";
+            cin>>encrypted;
+            cout<<endl<<"Enter Private Key1:: ";
+            cin>>private_key1;
+            cout<<endl<<"Enter Private Key2:: ";
+            cin>>private_key2;
+            decrypted.clear();
+            for (int i = 0; i < encrypted.length(); i=i+5) {
+                string str = encrypted.substr(i, 5);
+                d = rsa.decrypt_with_key(str, private_key1, private_key2 );
+                decrypted.push_back(d);
+            }
+            cout<<"\nYour Message is Decrypted:: "<<decrypted<<endl<<endl;
+
+        }
+
+        else if(choice == "exit"){
+            break;
+        }
+
+        else{
+            cout<<"Try again with valid choice."<<endl;
+        }
+
     }
-    cout<<"decrypted "<<decrypted<<endl;
+
+
 
 
 }
