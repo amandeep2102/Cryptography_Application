@@ -7,4 +7,4 @@ Run through cmake in the terminal;
 
 1. Clone repo
 2. Go to Build folder
-3. Open terminal and type ''' cmake --build . '''
+3. Open terminal and type ``` cmake --build . ```
