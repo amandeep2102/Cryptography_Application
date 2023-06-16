@@ -3,7 +3,7 @@ Application for encryption of messages using RSA Algorithm.
 Data Integrity check using SHA Algorithm.
 
 ## How to Run
-Run through cmake in the terminal \n
+Run through cmake in the terminal \
 Note: cmake version 3.26.4 or higher is required
 
 1. Clone repo
