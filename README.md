@@ -2,7 +2,7 @@
 Application for encryption of messages using RSA Algorithm.
 Data Integrity check using SHA Algorithm.
 
-# How to Run
+## How to Run
 Run through cmake in the terminal;
 
 1. Clone repo
