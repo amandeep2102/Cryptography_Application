@@ -8,3 +8,6 @@ Run through cmake in the terminal;
 1. Clone repo
 2. Go to Build folder
 3. Open terminal and type ``` cmake --build . ```
+4. Now type ``` ./cmake_build ```
+
+The program should run now.
