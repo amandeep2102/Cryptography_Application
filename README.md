@@ -1,6 +1,5 @@
 # Cryptography_Application
 Application for encryption of messages using RSA Algorithm.
-Data Integrity check using SHA Algorithm.
 
 ## How to Run
 Run through cmake in the terminal \
